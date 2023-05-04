@@ -10,10 +10,10 @@ A running demo is on [onesgo.simonxu.net](https://onesgo.simonxu.net/), which is
   `curl --request POST --url https://onesgo.simonxu.net/register
     --header 'Content-Type: application/json'
     --data '{
-			"email":      "test@example.com",
-			"password":   "testpassword",
+			"email": "test@example.com",
+			"password": "testpassword",
 			"first_name": "Lingkai",
-			"last_name":  "Xu",
+			"last_name": "Xu",
     }'`
 2. To login: 
   `curl --request POST --url https://onesgo.simonxu.net/login
@@ -50,3 +50,17 @@ I put commments with annotation `// ?` in the source code, including config file
 - The limit of current implementation is that it uses a fixed database configuration. The data layer ( or say model layer) should be abstracted, to provide a more generalised interface to service layer ( or say controller layer). Ideally, We can flexibly replace (or inject) the underlying storage.
 - I spent too long for setting up my server and trying to use Github Actions to generate images in different architectures.
 - I put other thoughts in code comments.
+
+## Container registry
+
+- For AMD64 server: `docker pull ghcr.io/lingkaix/onesgo:latest`
+- For ARM64/v8 server: `docker pull ghcr.io/lingkaix/onesgo:latest-arm64`
+- the service runs on port 8080
+
+## Kubernetes Deployment
+
+**This is only a demo deployment via kubectl with single replica, ephemeral storage, and domain: onesgo.simonxu.net**
+
+1. `kubectl apply -f onesgo-deployment.yaml`
+2. `kubectl apply -f onesgo-service.yaml`
+3. `kubectl apply -f onesgo-ingress.yaml`

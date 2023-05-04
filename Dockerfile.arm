@@ -1,3 +1,5 @@
+# // ? should use multi-stage build to have a smaller and cleaner final image
+
 FROM arm64v8/golang:1.20
 
 WORKDIR /app

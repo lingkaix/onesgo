@@ -52,6 +52,7 @@ func GetUser(db *gorm.DB, id uint64) (*User, error) {
 	return &user, nil
 }
 
+// ? should create an index for 'email' when querying on larger datasets
 func GetUserByEmail(db *gorm.DB, email string) (*User, error) {
 	var user User
 	err := db.Where("email = ?", email).First(&user).Error
