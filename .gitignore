@@ -22,3 +22,5 @@ go.work
 
 # sqlite data file
 *.db
+
+.DS_Store
