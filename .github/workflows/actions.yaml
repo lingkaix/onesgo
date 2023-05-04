@@ -44,4 +44,4 @@ jobs:
           dockerfile: Dockerfile.arm
           push: true
           platforms: linux/arm64/v8
-          tags: ghcr.io/${GITHUB_REPOSITORY}-arm:latest
+          tags: ghcr.io/${GITHUB_REPOSITORY}/arm:latest
