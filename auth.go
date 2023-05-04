@@ -62,7 +62,10 @@ func authMiddleware(c *gin.Context) {
 		return
 	}
 
-	// Pass the user ID from the token to the next handler
+	// ! Pass the user ID from the token to the next handler
+	//
+	// ? the switch make the middleware and handlers invisiblely interdependent
+	// ? decouple the logic or add tests/document
 	c.Set("user-id-jwt", claims["userID"])
 	c.Next()
 }

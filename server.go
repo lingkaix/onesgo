@@ -13,7 +13,7 @@ import (
 
 func setupRouter() *gin.Engine {
 	router := gin.Default()
-	// ? all handlers need better error info output
+	// ? all handlers need better info filter / output
 	router.POST("/login", login)
 	router.POST("/register", register)
 	router.GET("/users/:id", authMiddleware, getUser)
@@ -66,7 +66,8 @@ func register(c *gin.Context) {
 		return
 	}
 
-	// ? filter out more sensitive data
+	// ? create a middleware as the filter to make filter rules uniform
+	// ? and filter out more sensitive data
 	//
 	// ! filter out password from json output
 	user.Password = ""
@@ -80,7 +81,7 @@ func getUser(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal error"})
 		return
 	}
-	// ? rarely occurs a panic if jid is not a string
+	// ? need test for passing the jid value, rarely occurs a panic if jid is not a string
 	if c.Param("id") != jid.(string) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized request"})
 		return
@@ -138,7 +139,7 @@ func updateUser(c *gin.Context) {
 		}
 	}
 
-	// ? for deleted record, it will return 200 although it won't updadte the record
+	// ? for deleted record, it will return 200 although it won't updadte the database record
 	// ? need a check if the record has been deleted
 	err = UpdateUser(db, &user, keys)
 	if err != nil {

@@ -39,17 +39,6 @@ func (u *User) BeforeSave(*gorm.DB) error {
 	return nil
 }
 
-// func (u *User) MarshalJSON() ([]byte, error) {
-// 	type Alias User
-// 	return json.Marshal(&struct {
-// 		Password string `json:"password,omitempty"`
-// 		*Alias
-// 	}{
-// 		Password: "",
-// 		Alias:    (*Alias)(u),
-// 	})
-// }
-
 func AddUser(db *gorm.DB, u *User) error {
 	return db.Create(u).Error
 }
