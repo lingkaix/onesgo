@@ -11,7 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
@@ -20,9 +19,9 @@ jobs:
       - name: Run tests
         run: JWT_KEY="JWT_secret-key!" go test ./...
 
-      # - name: Build Docker image
-      #   run: |
-      #     docker build -t ${GITHUB_REPOSITORY}:latest .
+      - name: Build Docker image
+        run: |
+          docker build -t ${GITHUB_REPOSITORY}:latest .
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v1
@@ -31,17 +30,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Push Docker image
-      #   run: |
-      #     docker tag ${GITHUB_REPOSITORY}:latest ghcr.io/${GITHUB_REPOSITORY}:latest
-      #     docker push ghcr.io/${GITHUB_REPOSITORY}:latest
-
-      - name: Build arm64 Docker Image
-        id: build-arm64
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile.arm
-          push: true
-          platforms: linux/arm64/v8
-          tags: ghcr.io/${GITHUB_REPOSITORY}:latest
+      - name: Push Docker image
+        run: |
+          docker tag ${GITHUB_REPOSITORY}:latest ghcr.io/${GITHUB_REPOSITORY}:latest
+          docker push ghcr.io/${GITHUB_REPOSITORY}:latest
