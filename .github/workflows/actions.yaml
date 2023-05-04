@@ -18,7 +18,7 @@ jobs:
           go-version: 1.20.0
 
       - name: Run tests
-        run: go test ./...
+        run: JWT_KEY="JWT_secret-key!" go test ./...
 
       - name: Build Docker image
         run: |
